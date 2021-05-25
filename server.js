@@ -11,23 +11,21 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
-// setTimeout(() => {
 async function testConnection() {
-	const connection = mysql.createConnection({
+	const pool = mysql.createPool({
 		host: 'mastery-db',
 		user: 'wiz',
 		password: 'cloak',
 		database: 'mastery-db',
 	});
 
-	await connection.connect((err) => {
+	pool.query('SELECT * FROM Greeting', (err, results) => {
 		if (err) {
-			return console.error('error: ' + err.message);
+			console.error(err);
 		}
-		console.log('Connected to the Dockerized MySQL server container.');
+		console.log(results[0].message);
 	});
 }
-// }, 2000);
 testConnection();
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
