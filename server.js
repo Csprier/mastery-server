@@ -19,13 +19,31 @@ async function testConnection() {
 		database: 'mastery-db',
 	});
 
-	pool.query('SELECT * FROM Greeting', (err, results) => {
+	pool.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
 		}
-		console.log(results[0].message);
+		console.log(data[0].message);
 	});
 }
 testConnection();
+
+const pool = mysql.createPool({
+	host: 'mastery-db',
+	user: 'wiz',
+	password: 'cloak',
+	database: 'mastery-db',
+});
+
+app.get('/greeting', (req, res) => {
+	let message;
+	pool.query('SELECT * FROM Greeting', (err, data) => {
+		if (err) {
+			console.error(err);
+		}
+		console.log('MESSAGE:::', data[0]);
+		message = res.json(data[0]);
+	});
+});
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
