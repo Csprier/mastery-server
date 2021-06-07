@@ -13,10 +13,10 @@ app.options('*', cors());
 
 async function testConnection() {
 	const pool = mysql.createPool({
-		host: 'mastery-db',
-		user: 'wiz',
-		password: 'cloak',
-		database: 'mastery-db',
+		host: process.env.MASTERY_DATABASE,
+		user: process.env.MYSQL_USER,
+		password: process.env.MYSQL_PASSWORD,
+		database: process.env.MASTERY_DATABASE,
 	});
 
 	pool.query('SELECT * FROM Greeting', (err, data) => {
@@ -29,10 +29,10 @@ async function testConnection() {
 testConnection();
 
 const pool = mysql.createPool({
-	host: 'mastery-db',
-	user: 'wiz',
-	password: 'cloak',
-	database: 'mastery-db',
+	host: process.env.MASTERY_DATABASE,
+	user: process.env.MYSQL_USER,
+	password: process.env.MYSQL_PASSWORD,
+	database: process.env.MASTERY_DATABASE,
 });
 
 app.get('/greeting', (req, res) => {
