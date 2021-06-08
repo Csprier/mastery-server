@@ -14,19 +14,17 @@ app.options('*', cors());
 
 // =============================================================
 // = Routers
-const gatheringRouter = require('./routes/gathering.routes');
+// const gatheringRouter = require('./routes/gathering.routes');
 // =============================================================
-app.use('/gathering', gatheringRouter);
+// app.use('/gathering', gatheringRouter);
 
 async function testConnection() {
 	db.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
 		}
-		// console.log(data[0].message);
-		console.log(data);
+		console.log(data[0].message);
 	});
-	
 };
 testConnection();
 
@@ -37,9 +35,16 @@ app.get('/greeting', (req, res) => {
 		if (err) {
 			console.error(err);
 		}
-		console.log('MESSAGE:::', data[0]);
+		console.log('/greeting:=:', data[0]);
 		message = res.json(data[0]);
 	});
+});
+
+app.get('/gathering', (req, res) => {
+  db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
+    if (err) throw error;
+    res.json(data);
+  });
 });
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
