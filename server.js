@@ -41,6 +41,15 @@ app.get('/greeting', (req, res) => {
 });
 
 app.get('/gathering', (req, res) => {
+  // db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
+  //   if (err) throw error;
+  //   res.json(data);
+	// 	console.log(data);
+  // });
+	res.send('Welcome to the Gathering section.');
+});
+
+app.get('/gathering/basic-items', (req, res) => {
   db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
     if (err) throw error;
     res.json(data);
