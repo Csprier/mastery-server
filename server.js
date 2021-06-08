@@ -3,6 +3,8 @@ const cors = require('cors');
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 
+const db = require('./utility/db/db');
+
 dotenv.config();
 
 const PORT = 8080;
@@ -12,14 +14,14 @@ app.use(cors());
 app.options('*', cors());
 
 async function testConnection() {
-	const pool = mysql.createPool({
-		host: process.env.MASTERY_DATABASE,
-		user: process.env.MYSQL_USER,
-		password: process.env.MYSQL_PASSWORD,
-		database: process.env.MASTERY_DATABASE,
-	});
+	// const pool = mysql.createPool({
+	// 	host: process.env.MASTERY_DATABASE || 'mastery-db',
+	// 	user: process.env.MYSQL_USER || 'wiz',
+	// 	password: process.env.MYSQL_PASSWORD || 'cloak',
+	// 	database: process.env.MASTERY_DATABASE || 'mastery-db',
+	// });
 
-	pool.query('SELECT * FROM Greeting', (err, data) => {
+	db.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
 		}
@@ -28,16 +30,16 @@ async function testConnection() {
 }
 testConnection();
 
-const pool = mysql.createPool({
-	host: process.env.MASTERY_DATABASE,
-	user: process.env.MYSQL_USER,
-	password: process.env.MYSQL_PASSWORD,
-	database: process.env.MASTERY_DATABASE,
-});
+// const pool = mysql.createPool({
+// 	host: process.env.MASTERY_DATABASE || 'mastery-db',
+// 	user: process.env.MYSQL_USER || 'wiz',
+// 	password: process.env.MYSQL_PASSWORD || 'cloak',
+// 	database: process.env.MASTERY_DATABASE || 'mastery-db',
+// });
 
 app.get('/greeting', (req, res) => {
 	let message;
-	pool.query('SELECT * FROM Greeting', (err, data) => {
+	db.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
 		}
