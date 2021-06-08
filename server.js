@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
 const dotenv = require('dotenv');
 
 const db = require('./utility/db/db');
@@ -14,13 +13,6 @@ app.use(cors());
 app.options('*', cors());
 
 async function testConnection() {
-	// const pool = mysql.createPool({
-	// 	host: process.env.MASTERY_DATABASE || 'mastery-db',
-	// 	user: process.env.MYSQL_USER || 'wiz',
-	// 	password: process.env.MYSQL_PASSWORD || 'cloak',
-	// 	database: process.env.MASTERY_DATABASE || 'mastery-db',
-	// });
-
 	db.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
@@ -29,13 +21,6 @@ async function testConnection() {
 	});
 }
 testConnection();
-
-// const pool = mysql.createPool({
-// 	host: process.env.MASTERY_DATABASE || 'mastery-db',
-// 	user: process.env.MYSQL_USER || 'wiz',
-// 	password: process.env.MYSQL_PASSWORD || 'cloak',
-// 	database: process.env.MASTERY_DATABASE || 'mastery-db',
-// });
 
 app.get('/greeting', (req, res) => {
 	let message;
