@@ -12,15 +12,24 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
+// =============================================================
+// = Routers
+const gatheringRouter = require('./routes/gathering.routes');
+// =============================================================
+app.use('/gathering', gatheringRouter);
+
 async function testConnection() {
 	db.query('SELECT * FROM Greeting', (err, data) => {
 		if (err) {
 			console.error(err);
 		}
-		console.log(data[0].message);
+		// console.log(data[0].message);
+		console.log(data);
 	});
-}
+	
+};
 testConnection();
+
 
 app.get('/greeting', (req, res) => {
 	let message;
