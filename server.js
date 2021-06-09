@@ -40,12 +40,8 @@ app.get('/greeting', (req, res) => {
 	});
 });
 
+/** GATHERING ROUTES (need to be moved to their own file eventually) */
 app.get('/gathering', (req, res) => {
-  // db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
-  //   if (err) throw error;
-  //   res.json(data);
-	// 	console.log(data);
-  // });
 	res.send('Welcome to the Gathering section.');
 });
 
@@ -55,6 +51,30 @@ app.get('/gathering/basic-items', (req, res) => {
     res.json(data);
 		console.log(data);
   });
+});
+
+app.get('/gathering/rare-resources', (req, res) => {
+	db.query('SELECT * FROM GatheringRareResources', (err, data, fields) => {
+		if (err) throw error;
+    res.json(data);
+		console.log(data);
+	})
+});
+
+app.get('/gathering/special-resources', (req, res) => {
+	db.query('SELECT * FROM GatheringSpecialResources', (err, data, fields) => {
+		if (err) throw error;
+		res.json(data);
+		console.log(data);
+	})
+});
+
+app.get('/gathering/very-rare-resources', (req, res) => {
+	db.query('SELECT * FROM GatheringVeryRareResources', (err, data, fields) => {
+		if (err) throw error;
+    res.json(data);
+		console.log(data);
+	})
 });
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
