@@ -40,9 +40,36 @@ app.get('/greeting', (req, res) => {
 	});
 });
 
-/** GATHERING ROUTES (need to be moved to their own file eventually) */
+/** ====================================================================/ 
+ * GATHERING ROUTES 
+ * [] - (need to be moved to their own file eventually) 
+ * =============================================/ 
+*/
 app.get('/gathering', (req, res) => {
-	res.send('Welcome to the Gathering section.');
+	db.query(
+		`SELECT 
+			bi.id, 
+			bi.mastery, 
+			bi.itemchance, 
+			bi.dropamount,
+			rr.itemchance, 
+			rr.dropamount,
+			sr.itemchance, 
+			sr.dropamount,
+			vrr.itemchance, 
+			vrr.dropamount
+		FROM GatheringBasicItems AS bi
+		LEFT JOIN GatheringRareResources AS rr
+			ON bi.id = rr.id
+		LEFT JOIN GatheringSpecialResources AS sr
+			ON bi.id = sr.id
+		LEFT JOIN GatheringVeryRareResources AS vrr
+			ON bi.id = vrr.id;`, 
+	(err, data, fields) => {
+    if (err) throw error;
+    res.json(data);
+		console.log(data);
+  });
 });
 
 app.get('/gathering/basic-items', (req, res) => {
