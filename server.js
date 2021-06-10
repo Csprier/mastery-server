@@ -46,26 +46,7 @@ app.get('/greeting', (req, res) => {
  * =============================================/ 
 */
 app.get('/gathering', (req, res) => {
-	db.query(
-		`SELECT 
-			bi.id, 
-			bi.mastery, 
-			bi.itemchance, 
-			bi.dropamount,
-			rr.itemchance, 
-			rr.dropamount,
-			sr.itemchance, 
-			sr.dropamount,
-			vrr.itemchance, 
-			vrr.dropamount
-		FROM GatheringBasicItems AS bi
-		LEFT JOIN GatheringRareResources AS rr
-			ON bi.id = rr.id
-		LEFT JOIN GatheringSpecialResources AS sr
-			ON bi.id = sr.id
-		LEFT JOIN GatheringVeryRareResources AS vrr
-			ON bi.id = vrr.id;`, 
-	(err, data, fields) => {
+	db.query(`SELECT * FROM gathering_data`, (err, data, fields) => {
     if (err) throw error;
     res.json(data);
 		console.log(data);
