@@ -49,7 +49,7 @@ app.get('/gathering', (req, res) => {
 	db.query(`SELECT * FROM gathering_data`, (err, data, fields) => {
     if (err) throw error;
     res.json(data);
-		console.log(data);
+		// console.log(data);
   });
 });
 
@@ -57,7 +57,7 @@ app.get('/gathering/basic-items', (req, res) => {
   db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
     if (err) throw error;
     res.json(data);
-		console.log(data);
+		// console.log(data);
   });
 });
 
@@ -65,7 +65,7 @@ app.get('/gathering/rare-resources', (req, res) => {
 	db.query('SELECT * FROM GatheringRareResources', (err, data, fields) => {
 		if (err) throw error;
     res.json(data);
-		console.log(data);
+		// console.log(data);
 	})
 });
 
@@ -73,7 +73,7 @@ app.get('/gathering/special-resources', (req, res) => {
 	db.query('SELECT * FROM GatheringSpecialResources', (err, data, fields) => {
 		if (err) throw error;
 		res.json(data);
-		console.log(data);
+		// console.log(data);
 	})
 });
 
@@ -81,7 +81,7 @@ app.get('/gathering/very-rare-resources', (req, res) => {
 	db.query('SELECT * FROM GatheringVeryRareResources', (err, data, fields) => {
 		if (err) throw error;
     res.json(data);
-		console.log(data);
+		// console.log(data);
 	})
 });
 
@@ -94,7 +94,20 @@ app.get('/cooking', (req, res) => {
 	db.query('SELECT * FROM cooking_data', (err, data) => {
 		if (err) throw error;
 		res.json(data);
-		console.log(data);
+		// console.log(data);
+	})
+});
+
+/** ====================================================================/ 
+ * PROCESSING ROUTES 
+ * [] - (need to be moved to their own file eventually) 
+ * =============================================/ 
+*/
+app.get('/processing', (req, res) => {
+	db.query('SELECT * FROM processing_data', (err, data) => {
+		if (err) throw error;
+		res.json(data);
+		// console.log(data);
 	})
 })
 
