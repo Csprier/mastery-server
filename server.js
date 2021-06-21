@@ -124,4 +124,17 @@ app.get('/fishing', (req, res) => {
 	});
 });
 
+/** ====================================================================/ 
+ * TRAINING ROUTES 
+ * [] - (need to be moved to their own file eventually) 
+ * =============================================/ 
+*/
+app.get('/training', (req, res) => {
+	db.query('SELECT * FROM training_data', (err, data) => {
+		if (err) throw error;
+		res.json(data);
+		// console.log(data);
+	});
+});
+
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
