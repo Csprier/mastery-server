@@ -1,13 +1,13 @@
-const express = require('express');
-const db = require('../utility/db/db.js');
-
-const router = express.Router();
-
-app.get('/alchemy', (req, res) => {
-	db.query('SELECT * FROM alchemy_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
+module.exports = (function() {
+	const alchemyRouter = require('express').Router();
+	const db = require('../utility/db/db');
+	alchemyRouter.get('/alchemy', function (req, res) {
+		db.query('SELECT * FROM alchemy_data', (err, data) => {
+			if (err) console.error(err);
+			res.json(data);
+			console.log('Alchemy router data:', data);
+		});
 	});
-});
-
-module.exports = router;
+	
+	return alchemyRouter;
+})();

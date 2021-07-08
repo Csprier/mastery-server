@@ -11,12 +11,27 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.options('*', cors());
-
 // =============================================================
 // = Routers
-// const gatheringRouter = require('./routes/gathering.routes');
+const gatheringRouter = require('./routes/gathering.routes');
+const alchemyRouter = require('./routes/alchemy.routes');
 // =============================================================
-// app.use('/gathering', gatheringRouter);
+
+app.use(gatheringRouter);
+app.use(alchemyRouter);
+
+// ===============================================================================================
+// Catch-all Error handler
+// Add NODE_ENV check to prevent stacktrace leak
+app.use((err, req, res, next) => {
+  console.error('ERROR', err);
+  res.status(err.status);
+  res.json({
+    message: err.message,
+    error: app.get('env') === 'development' ? err : err
+  });
+	console.log({ message: err.message })
+});
 
 async function testConnection() {
 	db.query('SELECT * FROM Greeting', (err, data) => {
@@ -41,21 +56,7 @@ app.get('/greeting', (req, res) => {
 });
 
 /** ====================================================================/ 
- * ALCHEMY ROUTES 
- * [] - (need to be moved to their own file eventually) 
- * =============================================/ 
-*/
-app.get('/alchemy', (req, res) => {
-	db.query('SELECT * FROM alchemy_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	});
-});
-
-/** ====================================================================/ 
  * COOKING ROUTES 
- * [] - (need to be moved to their own file eventually) 
  * =============================================/ 
 */
 app.get('/cooking', (req, res) => {
@@ -77,51 +78,6 @@ app.get('/fishing', (req, res) => {
 		res.json(data);
 		// console.log(data);
 	});
-});
-
-/** ====================================================================/ 
- * GATHERING ROUTES 
- * [] - (need to be moved to their own file eventually) 
- * =============================================/ 
-*/
-app.get('/gathering', (req, res) => {
-	db.query(`SELECT * FROM gathering_data`, (err, data, fields) => {
-    if (err) throw error;
-    res.json(data);
-		// console.log(data);
-  });
-});
-
-app.get('/gathering/basic-items', (req, res) => {
-  db.query('SELECT * FROM GatheringBasicItems', (err, data, fields) => {
-    if (err) throw error;
-    res.json(data);
-		// console.log(data);
-  });
-});
-
-app.get('/gathering/rare-resources', (req, res) => {
-	db.query('SELECT * FROM GatheringRareResources', (err, data, fields) => {
-		if (err) throw error;
-    res.json(data);
-		// console.log(data);
-	})
-});
-
-app.get('/gathering/special-resources', (req, res) => {
-	db.query('SELECT * FROM GatheringSpecialResources', (err, data, fields) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	})
-});
-
-app.get('/gathering/very-rare-resources', (req, res) => {
-	db.query('SELECT * FROM GatheringVeryRareResources', (err, data, fields) => {
-		if (err) throw error;
-    res.json(data);
-		// console.log(data);
-	})
 });
 
 /** ====================================================================/ 
