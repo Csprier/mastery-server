@@ -13,13 +13,15 @@ app.use(cors());
 app.options('*', cors());
 // =============================================================
 // = Routers
-const gatheringRouter = require('./routes/gathering.routes');
 const alchemyRouter = require('./routes/alchemy.routes');
+const cookingRouter = require('./routes/cooking.routes');
+const gatheringRouter = require('./routes/gathering.routes');
 const greetingRouter = require('./routes/greeting.routes');
 // =============================================================
-app.use(greetingRouter)
-app.use(gatheringRouter);
 app.use(alchemyRouter);
+app.use(cookingRouter);
+app.use(greetingRouter);
+app.use(gatheringRouter);
 
 // ===============================================================================================
 // Catch-all Error handler
@@ -43,18 +45,6 @@ async function testConnection() {
 	});
 };
 testConnection();
-
-/** ====================================================================/ 
- * COOKING ROUTES 
- * =============================================/ 
-*/
-app.get('/cooking', (req, res) => {
-	db.query('SELECT * FROM cooking_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	})
-});
 
 /** ====================================================================/ 
  * FISHING ROUTES 
