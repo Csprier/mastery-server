@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-const db = require('./utility/db/db');
-
 dotenv.config();
 
 const PORT = 8080;
@@ -12,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 // =============================================================
-// = Routers
+// Routers
 const alchemyRouter = require('./routes/alchemy.routes');
 const cookingRouter = require('./routes/cooking.routes');
 const fishingRouter = require('./routes/fishing.routes');
@@ -44,14 +42,9 @@ app.use((err, req, res, next) => {
 	console.log({ message: err.message })
 });
 
-async function testConnection() {
-	db.query('SELECT * FROM Greeting', (err, data) => {
-		if (err) {
-			console.error(err);
-		}
-		console.log(data[0].message);
-	});
-};
-testConnection();
+app.get('/greeting', (req, res) => {
+	console.log(res);
+	res.send(res);
+});
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));

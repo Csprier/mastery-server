@@ -9,6 +9,7 @@ module.exports = (function() {
       }
       console.log(data[0].message);
       message = res.json(data[0]);
+      return message;
     });
   });
   return greetingRouter;
