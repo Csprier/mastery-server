@@ -20,6 +20,7 @@ const gatheringRouter = require('./routes/gathering.routes');
 const greetingRouter = require('./routes/greeting.routes');
 const processingRouter = require('./routes/processing.routes');
 const sailingRouter = require('./routes/sailing.routes');
+const trainingRouter = require('./routes/training.routes');
 // =============================================================
 app.use(alchemyRouter);
 app.use(cookingRouter);
@@ -28,6 +29,7 @@ app.use(greetingRouter);
 app.use(gatheringRouter);
 app.use(processingRouter);
 app.use(sailingRouter);
+app.use(trainingRouter);
 
 // ===============================================================================================
 // Catch-all Error handler
@@ -51,20 +53,5 @@ async function testConnection() {
 	});
 };
 testConnection();
-
-/** ====================================================================/ 
- * TRAINING ROUTES 
- * [] - (need to be moved to their own file eventually) 
- * =============================================/ 
-*/
-app.get('/training', (req, res) => {
-	db.query('SELECT * FROM training_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	});
-});
-
-
 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
