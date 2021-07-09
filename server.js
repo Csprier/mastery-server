@@ -18,6 +18,7 @@ const cookingRouter = require('./routes/cooking.routes');
 const fishingRouter = require('./routes/fishing.routes');
 const gatheringRouter = require('./routes/gathering.routes');
 const greetingRouter = require('./routes/greeting.routes');
+const processingRouter = require('./routes/processing.routes');
 const sailingRouter = require('./routes/sailing.routes');
 // =============================================================
 app.use(alchemyRouter);
@@ -25,6 +26,7 @@ app.use(cookingRouter);
 app.use(fishingRouter)
 app.use(greetingRouter);
 app.use(gatheringRouter);
+app.use(processingRouter);
 app.use(sailingRouter);
 
 // ===============================================================================================
@@ -49,19 +51,6 @@ async function testConnection() {
 	});
 };
 testConnection();
-
-/** ====================================================================/ 
- * PROCESSING ROUTES 
- * [] - (need to be moved to their own file eventually) 
- * =============================================/ 
-*/
-app.get('/processing', (req, res) => {
-	db.query('SELECT * FROM processing_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	});
-});
 
 /** ====================================================================/ 
  * TRAINING ROUTES 
