@@ -15,12 +15,14 @@ app.options('*', cors());
 // = Routers
 const alchemyRouter = require('./routes/alchemy.routes');
 const cookingRouter = require('./routes/cooking.routes');
+const fishingRouter = require('./routes/fishing.routes');
 const gatheringRouter = require('./routes/gathering.routes');
 const greetingRouter = require('./routes/greeting.routes');
 const sailingRouter = require('./routes/sailing.routes');
 // =============================================================
 app.use(alchemyRouter);
 app.use(cookingRouter);
+app.use(fishingRouter)
 app.use(greetingRouter);
 app.use(gatheringRouter);
 app.use(sailingRouter);
@@ -55,19 +57,6 @@ testConnection();
 */
 app.get('/processing', (req, res) => {
 	db.query('SELECT * FROM processing_data', (err, data) => {
-		if (err) throw error;
-		res.json(data);
-		// console.log(data);
-	});
-});
-
-/** ====================================================================/ 
- * SAILING ROUTES 
- * [] - (need to be moved to their own file eventually) 
- * =============================================/ 
-*/
-app.get('/sailing', (req, res) => {
-	db.query('SELECT * FROM sailing_data', (err, data) => {
 		if (err) throw error;
 		res.json(data);
 		// console.log(data);
