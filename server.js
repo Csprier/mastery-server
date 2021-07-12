@@ -19,7 +19,6 @@ const greetingRouter = require('./routes/greeting.routes');
 const processingRouter = require('./routes/processing.routes');
 const sailingRouter = require('./routes/sailing.routes');
 const trainingRouter = require('./routes/training.routes');
-// =============================================================
 app.use(alchemyRouter);
 app.use(cookingRouter);
 app.use(fishingRouter)
@@ -28,18 +27,19 @@ app.use(gatheringRouter);
 app.use(processingRouter);
 app.use(sailingRouter);
 app.use(trainingRouter);
+// =============================================================
+
 
 // ===============================================================================================
 // Catch-all Error handler
 // Add NODE_ENV check to prevent stacktrace leak
 app.use((err, req, res, next) => {
-  console.error('ERROR', err);
   res.status(err.status);
   res.json({
     message: err.message,
     error: app.get('env') === 'development' ? err : err
   });
-	console.log({ message: err.message })
+	console.log({ message: err.message });
 });
 
 app.get('/greeting', (req, res) => {
