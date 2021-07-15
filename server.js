@@ -47,4 +47,4 @@ app.get('/greeting', (req, res) => {
 	res.send(res);
 });
 
-app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}!`));
+app.listen(PORT, () => console.log(`Running on http://127.0.0.1:${PORT}!`));
