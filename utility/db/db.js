@@ -8,8 +8,8 @@ const mysql = require('mysql');
 // });
 
 const db = mysql.createPool({
-  // host: 'localhost',
-	host: '0.0.0.0',
+  host: 'localhost',
+	// host: '0.0.0.0',
 	user: 'wiz',
 	password: 'cloak',
 	database: 'mastery-db',
